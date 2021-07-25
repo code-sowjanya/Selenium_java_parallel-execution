@@ -18,8 +18,7 @@
 # Pre-requisites
 1. Java 8
 2. Maven
-3. IDE
-4. 
+3. Chrome browser version 92.X (the chrome driver is compatable with this version)  
 
 # Framework structure:
 This project contains below packages and files
