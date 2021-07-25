@@ -1,4 +1,4 @@
-# backbase-conduit -Conduit project web automation framework
+# Conduit project web automation framework
 
 	This project is a Data driven framework designed to test conduit application with multiple sets of data. 
 
