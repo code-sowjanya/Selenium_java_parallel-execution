@@ -42,8 +42,7 @@ Tests can be executed in the below ways
 
  1. Running the testng xml files seperately from eclipse by right clicking and running as "TestNG suite"
 
- 2. Running from command line using maven test command.
-        mvn test -pSmoke or mvn test -pDataDrivenTest
+ 2. Running from command line using maven by using Smoke profile for single test and DataDriventest profile for data driven tests.
 
 
 # Other information:
