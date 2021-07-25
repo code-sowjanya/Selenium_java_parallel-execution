@@ -9,11 +9,11 @@
 # Technology stack:
 
 ###### Selenium WebDriver 4
-Java SE 8 or above
-Maven 
-TestNG 
-LogBack
-Chrome driver 92.X 
+###### Java SE 8 or above
+###### Maven 
+###### TestNG 
+###### LogBack
+###### Chrome driver 92.X 
 
 
 # Framework structure:
