@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class DriverManager {
 
-	private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<WebDriver>();
+	protected static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<WebDriver>();
 	
 	/*
 	 * singleton pattern
@@ -36,8 +36,9 @@ public class DriverManager {
 	public static void closeDriver() {
 		if(DRIVER.get()!=null) {
 			DRIVER.get().quit();
-			DRIVER.remove();
 		}
+		DRIVER.remove();
+		
 	}
 	
 }

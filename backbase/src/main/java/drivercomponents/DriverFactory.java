@@ -14,19 +14,19 @@ public class DriverFactory {
 	 * create webDriver instance
 	 */
 	public static WebDriver createInstance(String browser) {
-		WebDriver DRIVER = null;
+		WebDriver driver = null;
 
-		if (DRIVER == null) {
+		if (driver == null) {
 			if (browser.equals("chrome")) {
 				System.setProperty("webdriver.chrome.driver",
 						System.getProperty("user.dir") 
 						+ "\\src\\test\\resources\\drivers\\chromedriver.exe");
-				DRIVER = new ChromeDriver();
-				DRIVER.manage().window().maximize();
+				driver = new ChromeDriver();
+				driver.manage().window().maximize();
 			} else if(browser == "firefox") {
-				DRIVER = new FirefoxDriver();
+				driver = new FirefoxDriver();
 			}
 		}
-		return DRIVER;
+		return driver;
 	}
 }

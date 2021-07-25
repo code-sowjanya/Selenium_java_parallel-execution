@@ -1,16 +1,12 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
-
 import baseclass.BasePage;
+import drivercomponents.DriverManager;
 
 public class HomePage extends BasePage {
-
 	/*
 	 * Logger class initialization.
 	 */
@@ -23,10 +19,15 @@ public class HomePage extends BasePage {
 	/*
 	 * Locater elements
 	 */
+	public static WebDriver driver;
 	private final static String SIGNIN_LINK = "signinlnk";
+	private final static String SETTINGS_LINK = "settingsLnk";
+	private final static String LOGOUT_BUTTON = "logout";
+
+	// change at 1.53 public HomePage(WebDriver driver) {
 
 	public HomePage(WebDriver driver) {
-		super(driver, "homepage.properties");
+		super(driver,"homepage.properties");
 	}
 
 	/*
@@ -41,13 +42,13 @@ public class HomePage extends BasePage {
 	 * 
 	 * @return Login page object
 	 */
-	public LoginPage clickOnSignInLink() {
+	public synchronized LoginPage clickOnSignInLink() {
 		log.info(this.getClass().getSimpleName() + " starting of clickOnSignInButton method");
 		this.click(SIGNIN_LINK);
 
 		// Initialize login page and check for ready
 		log.info("Creating login Object");
-		loginPage = new LoginPage(driver);
+		loginPage = new LoginPage(DriverManager.getDriver());
 		log.info("Checking for login page readiness");
 		loginPage.isReady();
 
@@ -56,10 +57,25 @@ public class HomePage extends BasePage {
 		return loginPage;
 	}
 
-	public boolean isElementActive(String class_name) {
-		boolean isActive = false;
+	/*
+	 * Method to click on settings link in the header
+	 * 
+	 */
+	public void logout() {
+		log.info(this.getClass().getSimpleName() + " starting of clickOnSettingsLink method");
+		log.info("click on settings link");
+		this.click(SETTINGS_LINK);
 
-		return isActive;
+		// Scroll down
+		log.info("Scrolling down to log out button");
+		this.scrollDown();
+		log.info("Scrolled down to log out button");
+
+		log.info("click on logout link");
+		this.click(LOGOUT_BUTTON);
+
+		log.info(this.getClass().getSimpleName() + " Ending of clickOnSettingsLink method");
+
 	}
 
 	/*
@@ -67,8 +83,7 @@ public class HomePage extends BasePage {
 	 */
 	@Override
 	protected void isLoaded() {
-		String SIGNIN_LINK = this.SIGNIN_LINK + ".xpath";
 		this.waitForElementClickable(SIGNIN_LINK);
 	}
-	
+
 }

@@ -20,6 +20,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import drivercomponents.DriverManager;
+
 public abstract class BasePage extends LoadableComponent<BasePage> {
 	/*
 	 * Logger object initialization
@@ -28,7 +30,7 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 	/*
 	 * Base page components
 	 */
-	public static WebDriver driver;
+	public static WebDriver driver= DriverManager.getDriver();
 	private static final Properties PROPERTIES = new Properties();
 	public static String browser;
 	private static final String LOCATOR_DIR = "\\src\\test\\resources\\selectors";
@@ -38,9 +40,9 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 	 * constructor method to load the locator file
 	 * 
 	 * @param driver and locator file path
-	 */
-	public BasePage(WebDriver driver, String locatorFile) {
-		this.driver = driver;
+	 */	
+	public BasePage(WebDriver driver,String locatorFile) {
+		this.driver = DriverManager.getDriver();
 		this.loadFile(locatorFile);
 	}
 
@@ -51,7 +53,7 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 		assertTrue(file.exists(), "The locater file is not found - " + file.getName());
 
 		if (file.exists()) {
-			log.info("Locater file exists");
+			log.info("Locater file exists for thread: " + Thread.currentThread().getId());
 			try {
 				// load the locator file
 				FileInputStream fileInput = new FileInputStream(file);
@@ -75,7 +77,7 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 	public WebElement getElementByXpath(String key) {
 
 		String value = PROPERTIES.getProperty(key + ".xpath");
-
+		this.waitForElementClickable(key);
 		if (value.isBlank())
 			throw new RuntimeException("The locator key is not found");
 
@@ -102,21 +104,33 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 	 * 
 	 * @param web element string
 	 */
-	public void click(String element) {
+	public synchronized void click(String element) {
 		log.info(this.getClass().getSimpleName() + " starting of click method");
 
+		log.info("Checking for the element to be enabled");
+
 		WebElement button = this.getElementByXpath(element);
+		String buttonName = button.getText();
 		if (button.isEnabled()) {
-			log.info(button.getText() + "element and is being clicked.");
+			log.info(buttonName + "  element is present and is being clicked.");
 			button.click();
-			log.info(button.getText() + "element is clicked.");
+			log.info(buttonName + " element is clicked.");
 		} else
 			log.error("element is ready." + element);
 
 		log.info(this.getClass().getSimpleName() + " Ending of click method");
 	}
 
-	public void waitForElementVisbility(String element) {
+	public void waitForElementInVisbility(String element) {
+
+		String locaterValue = PROPERTIES.getProperty(element + ".xpath");
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locaterValue)));
+
+	}
+
+	public synchronized void waitForElementVisbility(String element) {
 
 		String locaterValue = PROPERTIES.getProperty(element + ".xpath");
 
@@ -126,7 +140,7 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 
 	public void waitForElementClickable(String element) {
 
-		String locaterValue = PROPERTIES.getProperty(element);
+		String locaterValue = PROPERTIES.getProperty(element + ".xpath");
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locaterValue)));
@@ -138,7 +152,7 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 	@Override
 	protected void isLoaded() {
 		boolean isReady = false;
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		JavascriptExecutor executor = (JavascriptExecutor) DriverManager.getDriver();
 		isReady = executor.executeScript("return document.readystate") == "complete";
 		assertTrue(isReady, "Page load is not complete");
 	}
@@ -151,6 +165,57 @@ public abstract class BasePage extends LoadableComponent<BasePage> {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public abstract void isReady();
+
+	/*
+	 * Method to check if a given link is active or not
+	 * 
+	 * @param String
+	 * 
+	 * @boolean true or false
+	 */
+	public boolean isLinkActive(String linkName) {
+		log.info(this.getClass().getSimpleName() + " starting of isLinkActive method");
+		boolean isPresent = false;
+		this.waitForElementClickable(linkName);
+		log.info("Checking if " + linkName + " link is active in header");
+		if (this.getElementByXpath(linkName).getAttribute("class").contains("active")) {
+			log.info("link is active in header");
+			isPresent = true;
+		}
+
+		log.info(this.getClass().getSimpleName() + " Ending of isLinkActive method");
+		return isPresent;
+	}
+
+	/*
+	 * Wait until attribute contains active
+	 */
+	public void waitUntilAttributeActice(String element) {
+		String locaterValue = PROPERTIES.getProperty(element + ".xpath");
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+		wait.until(ExpectedConditions.attributeContains(By.xpath(locaterValue), "class", "active"));
+
+	}
+
+	/*
+	 * Method to enter text into the text box
+	 */
+	public void enterText(String locator, String message) {
+		this.waitForElementClickable(locator);
+		this.getElementByXpath(locator).sendKeys(message);
+
+	}
+
+	/*
+	 * Method to scroll down
+	 */
+	public void scrollDown() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,400)", "");
 	}
 
 }

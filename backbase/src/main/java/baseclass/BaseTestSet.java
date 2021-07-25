@@ -5,12 +5,18 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import drivercomponents.*;
 
 public abstract class BaseTestSet {
+	/*
+	 * Logger class initialization.
+	 */
+	private static Logger log = LoggerFactory.getLogger(BaseTestSet.class);
+
 	/*
 	 * Element key selectors
 	 */
@@ -19,7 +25,7 @@ public abstract class BaseTestSet {
 	/*
 	 * class components
 	 */
-	public static WebDriver driver;
+//	public static WebDriver driver;
 	String confiPath = System.getProperty("user.dir") + "\\src\\test\\resources\\config.properties";
 	private static final Properties PROPERTIES = new Properties();
 	FileInputStream loader = null;
@@ -27,10 +33,9 @@ public abstract class BaseTestSet {
 	protected String AUTH_USERNAME = null;
 	protected String AUTH_PASSWORD = null;
 	protected String PROTOCOL = null;
-	protected String ADMIN_USER=null;
-	protected String ADMIN_PASSWORD=null;
+	protected String ADMIN_USER = null;
+	protected String ADMIN_PASSWORD = null;
 
-	
 	/*
 	 * Default constructor
 	 */
@@ -40,9 +45,11 @@ public abstract class BaseTestSet {
 
 	@BeforeMethod
 	public void setUp() throws InterruptedException {
-		if (driver == null) {
-			driver = DriverFactory.createInstance(PROPERTIES.getProperty("browser"));
-			DriverManager.setDriver(driver);
+		log.info("Before method for thread : " + Thread.currentThread().getId());
+		if (DriverManager.getDriver() == null) {
+	//		driver = DriverFactory.createInstance(PROPERTIES.getProperty("browser"));
+		
+			DriverManager.setDriver(DriverFactory.createInstance(PROPERTIES.getProperty("browser")));
 			System.out.println("The selected browser is - " + PROPERTIES.getProperty("browser"));
 			PROTOCOL = PROPERTIES.getProperty("protocol");
 			AUTH_USERNAME = PROPERTIES.getProperty("readonlyusername");
@@ -51,22 +58,14 @@ public abstract class BaseTestSet {
 			System.out.println("The AUT is - " + URL);
 			ADMIN_USER = PROPERTIES.getProperty("adminusername");
 			ADMIN_PASSWORD = PROPERTIES.getProperty("adminpassword");
-			
-			driver.navigate().to(URL);
+
+			DriverManager.getDriver().navigate().to(URL);
 		}
 	}
 
-	/*
-	 * Method to launch the AUT 
-	 * 
-	 */
-	//@BeforeMethod
-	public void get() {
-		DriverManager.getDriver().navigate().to(this.URL);
-	}
-	
 	@AfterMethod
 	public void afterAllIsDone() {
+		log.info("After driver close method for thread : " + Thread.currentThread().getId());
 		DriverManager.closeDriver();
 	}
 
@@ -80,7 +79,5 @@ public abstract class BaseTestSet {
 			e.printStackTrace();
 		}
 	}
-
-
 
 }

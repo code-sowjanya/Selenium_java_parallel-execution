@@ -1,12 +1,11 @@
 package pages;
 
-import java.util.NoSuchElementException;
-
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import baseclass.BasePage;
+import drivercomponents.DriverManager;
 
 public class LoginPage extends BasePage {
 	/*
@@ -24,44 +23,47 @@ public class LoginPage extends BasePage {
 	/*
 	 * Constructor class name
 	 * 
-	 *  @param driver instance
+	 * @param driver instance
 	 */
 	public LoginPage(WebDriver driver) {
-		super(driver, "loginpage.properties");
+		super(driver,"loginpage.properties");
 	}
-	
+
 	/*
-	 * method to login to the application 
+	 * method to login to the application
 	 */
-	public void login(String username, String password) {
+	public UserHomePage login(String username, String password) {
 		log.info(this.getClass().getSimpleName() + " starting of login method");
-		
-		try{
-			this.waitForElementVisbility(EMAIL_TEXTBOX);
-			this.getElementByXpath(EMAIL_TEXTBOX).sendKeys(username);
-			this.waitForElementVisbility(PASSWORD_TEXTBOX);
-			this.getElementByXpath(PASSWORD_TEXTBOX).sendKeys(password);
-			this.click(SIGNIN_BUTTON);
-			
-			//Create user home page object
-			UserHomePage userHomePage = new UserHomePage(driver);
-			
-		} catch(NoSuchElementException e) {
-			e.printStackTrace();
-		}
-		
-		
+
+		UserHomePage userHomePage = null;
+
+		this.waitForElementVisbility(EMAIL_TEXTBOX);
+		log.info("Username text box is enable, entering the data.");
+		this.getElementByXpath(EMAIL_TEXTBOX).sendKeys(username);
+		this.waitForElementVisbility(PASSWORD_TEXTBOX);
+		log.info("Password text box is enable, entering the data.");
+		this.getElementByXpath(PASSWORD_TEXTBOX).sendKeys(password);
+		this.click(SIGNIN_BUTTON);
+
+		// Create user home page object
+		log.info("Checking for user home page readiness");
+		userHomePage = new UserHomePage(DriverManager.getDriver());
+		userHomePage.isReady();
+
 		log.info(this.getClass().getSimpleName() + " Ending of login Method");
-		
+		return userHomePage;
 	}
 
-		// the sing in method will return the home page object
-		// Assert user is navigated to your feed is active
-
+	// the sing in method will return the home page object
+	// Assert user is navigated to your feed is active
+	/*
+	 * Method to check the readiness of the page
+	 */
+	@Override
 	public void isReady() {
-	this.get();		
+		this.get();
 	}
-	
+
 	/*
 	 * check whether the page load is complete
 	 */
@@ -70,6 +72,5 @@ public class LoginPage extends BasePage {
 		this.waitForElementVisbility(EMAIL_TEXTBOX);
 		this.waitForElementVisbility(PASSWORD_TEXTBOX);
 	}
-
 
 }

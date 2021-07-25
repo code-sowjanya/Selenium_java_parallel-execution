@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import baseclass.BasePage;
@@ -16,11 +17,11 @@ import pages.LoginPage;
 import pages.NewArticlePage;
 import pages.UserHomePage;
 
-public class NewArticleTestSet extends BaseTestSet {
+public class DatDrivenNewArticleTestSet extends BaseTestSet {
 	/*
 	 * Logger object initialization
 	 */
-	private static final Logger LOG = LoggerFactory.getLogger(NewArticleTestSet.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DatDrivenNewArticleTestSet.class);
 
 	/*
 	 * class components
@@ -30,7 +31,7 @@ public class NewArticleTestSet extends BaseTestSet {
 	NewArticlePage newArticlePage;
 	UserHomePage userHomePage;
 
-	public NewArticleTestSet() {
+	public DatDrivenNewArticleTestSet() {
 		super();
 	}
 
@@ -43,7 +44,6 @@ public class NewArticleTestSet extends BaseTestSet {
 	public void after() {
 		super.afterAllIsDone();
 	}
-
 	/*
 	 * Scenario: publish a new article
 	 * 
@@ -51,8 +51,8 @@ public class NewArticleTestSet extends BaseTestSet {
 	 * Navigate to New Article link 4. Enter the details and publish the article 5.
 	 * Assert publishing of the article 6. Delete the article 7. Log out
 	 */
-	@Test(description = "Check publishing a new article")
-	public void publishNewTestingArticle() {
+	@Test(description = "Test to create and delete multiple articles", dataProvider="newarticledata", dataProviderClass=utilities.TestDataProvider.class)
+	public void publishNewTestingArticle(String title,String desc,String body,String tag) {
 		LOG.info("This is the starting of the test method" + this.getClass().getSimpleName());
 
 		// check home page readiness
@@ -82,7 +82,7 @@ public class NewArticleTestSet extends BaseTestSet {
 		LOG.info("New article link is active");
 
 		// publish article LOG.info("Publishing the Article");
-		newArticlePage.publishArticle();
+		newArticlePage.publishArticle(title, desc, body, tag);
 		LOG.info("Article is published");
 
 		// assert page navigated to article home page
@@ -101,4 +101,8 @@ public class NewArticleTestSet extends BaseTestSet {
 		LOG.info("this is the ending of the test method" + this.getClass().getSimpleName());
 
 	}
+
+	
+	
+	
 }
