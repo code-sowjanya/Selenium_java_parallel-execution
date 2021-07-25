@@ -7,6 +7,7 @@
  This project followed page object design pattern. Project is built using selenium webdriver with java, TestNG, Maven, logback. This is framwork is designed for testing Create, read and delete options of an article with multiple sets of data. 
  
 # Technology stack:
+
 Selenium WebDriver 4
 Java SE 8 or above
 Maven 
