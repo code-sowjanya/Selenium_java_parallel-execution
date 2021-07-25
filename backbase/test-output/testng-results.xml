@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2021-07-25T16:58:58 IST" name="ALL Test Suite" finished-at="2021-07-25T17:00:47 IST" duration-ms="108858">
+    <groups>
+    </groups>
+    <test started-at="2021-07-25T16:58:58 IST" name="Data Driven Test" finished-at="2021-07-25T17:00:27 IST" duration-ms="88957">
+      <class name="tests.DatDrivenNewArticleTestSet">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T16:58:58 IST" name="setUp" finished-at="2021-07-25T16:59:35 IST" duration-ms="37506" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="before()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T16:59:35 IST" name="before" description="Startest" finished-at="2021-07-25T16:59:35 IST" duration-ms="4" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- before -->
+        <test-method signature="publishNewTestingArticle(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T16:59:35 IST" name="publishNewTestingArticle" description="Test to create and delete multiple articles" data-provider="newarticledata" finished-at="2021-07-25T16:59:47 IST" duration-ms="11697" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Title1]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Description1]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Body1]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[tag1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- publishNewTestingArticle -->
+        <test-method is-config="true" signature="after()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T16:59:47 IST" name="after" description="endstart" finished-at="2021-07-25T16:59:57 IST" duration-ms="9737" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- after -->
+        <test-method is-config="true" signature="afterAllIsDone()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T16:59:57 IST" name="afterAllIsDone" finished-at="2021-07-25T16:59:57 IST" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterAllIsDone -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T16:59:57 IST" name="setUp" finished-at="2021-07-25T17:00:16 IST" duration-ms="19190" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="before()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T17:00:16 IST" name="before" description="Startest" finished-at="2021-07-25T17:00:16 IST" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- before -->
+        <test-method signature="publishNewTestingArticle(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T17:00:16 IST" name="publishNewTestingArticle" description="Test to create and delete multiple articles" data-provider="newarticledata" finished-at="2021-07-25T17:00:24 IST" duration-ms="7997" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Title2]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Description2]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Body2]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[tag2]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- publishNewTestingArticle -->
+        <test-method is-config="true" signature="after()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T17:00:24 IST" name="after" description="endstart" finished-at="2021-07-25T17:00:27 IST" duration-ms="2591" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- after -->
+        <test-method is-config="true" signature="afterAllIsDone()[pri:0, instance:tests.DatDrivenNewArticleTestSet@5ba3f27a]" started-at="2021-07-25T17:00:27 IST" name="afterAllIsDone" finished-at="2021-07-25T17:00:27 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterAllIsDone -->
+      </class> <!-- tests.DatDrivenNewArticleTestSet -->
+    </test> <!-- Data Driven Test -->
+    <test started-at="2021-07-25T17:00:28 IST" name="Test" finished-at="2021-07-25T17:00:47 IST" duration-ms="19152">
+      <class name="tests.NewArticleTestSet">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.NewArticleTestSet@1a6d8329]" started-at="2021-07-25T17:00:28 IST" name="setUp" finished-at="2021-07-25T17:00:38 IST" duration-ms="10643" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="before()[pri:0, instance:tests.NewArticleTestSet@1a6d8329]" started-at="2021-07-25T17:00:38 IST" name="before" description="Startest" finished-at="2021-07-25T17:00:38 IST" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- before -->
+        <test-method signature="publishNewTestingArticle()[pri:0, instance:tests.NewArticleTestSet@1a6d8329]" started-at="2021-07-25T17:00:38 IST" name="publishNewTestingArticle" description="Check publishing a new article" finished-at="2021-07-25T17:00:45 IST" duration-ms="6865" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- publishNewTestingArticle -->
+        <test-method is-config="true" signature="after()[pri:0, instance:tests.NewArticleTestSet@1a6d8329]" started-at="2021-07-25T17:00:45 IST" name="after" description="endstart" finished-at="2021-07-25T17:00:47 IST" duration-ms="1630" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- after -->
+        <test-method is-config="true" signature="afterAllIsDone()[pri:0, instance:tests.NewArticleTestSet@1a6d8329]" started-at="2021-07-25T17:00:47 IST" name="afterAllIsDone" finished-at="2021-07-25T17:00:47 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterAllIsDone -->
+      </class> <!-- tests.NewArticleTestSet -->
+    </test> <!-- Test -->
+  </suite> <!-- ALL Test Suite -->
+</testng-results>
